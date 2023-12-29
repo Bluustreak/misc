@@ -1,4 +1,5 @@
 # Simple pygame program
+import random
 dots=[]
 class dot:
     def __init__(self, x, y):
@@ -9,6 +10,8 @@ class dot:
     def draw(self):
         pygame.draw.circle(screen, (100, 100, 100), (self.x, self.y), 10)
     def update(self):
+        self.vx = random.randint(-1,1)
+        self.vy = random.randint(-1,1)
         self.x += self.vx 
         self.y += self.vy 
 
@@ -24,6 +27,14 @@ def checkInputs():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+def updateDots():
+    for dot in dots:
+        dot.update()
+def drawDots():
+    for dot in dots:
+        dot.draw()
+
+
 # Import and initialize the pygame library
 import pygame
 pygame.init()
@@ -36,9 +47,8 @@ running = True
 while running:
     checkInputs()
 
-    for dot in dots:
-        dot.update()
-        dot.draw()
+    updateDots()
+    drawDots()
         
     updateScreen()
 # Done! Time to quit.
